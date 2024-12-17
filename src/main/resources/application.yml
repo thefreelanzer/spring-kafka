@@ -1,0 +1,50 @@
+# Server configuration
+server:
+  port: 8080
+
+spring:
+  application:
+    name: demo
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/customers
+    username: root
+    password: rootuser
+
+  jpa:
+    open-in-view: false
+
+  kafka:
+    consumer:
+      # The address of the Kafka broker(s) for the consumer
+      bootstrap-servers: localhost:9092
+
+      # The consumer group ID to which this application belongs
+      group-id: myGroup
+
+      # Set the starting offset for new consumers (earliest: start from beginning of topic)
+      auto-offset-reset: earliest
+
+      # Deserializer for the consumer key (interprets the key data as a String)
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+      # Deserializer for the consumer value (interprets the value data as a String)
+      # value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+
+    producer:
+      # The address of the Kafka broker(s) for the producer
+      bootstrap-servers: localhost:9092
+
+      # Serializer for the producer key (converts the key data to String)
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+      # Serializer for the producer value (converts the value data to String)
+      # value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
