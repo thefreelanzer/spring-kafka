@@ -1,1 +1,8 @@
 rootProject.name = 'springkafka'
+include 'kafka-producer-wikimedia'
+project(':kafka-producer-wikimedia').projectDir = file('kafka-producer-wikimedia')
+include 'kafka-consumer-wikimedia'
+project(':kafka-consumer-wikimedia').projectDir = file('kafka-consumer-wikimedia')
+
+
+

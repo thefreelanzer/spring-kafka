@@ -1,18 +1,27 @@
 # Server configuration
 server:
-  port: 8080
+  port: 8082
 
 spring:
   application:
-    name: demo
+    name: kafka-consumer-wikimedia
 
   datasource:
-    url: jdbc:mysql://localhost:3306/customers
+    url: jdbc:mysql://localhost:3306/kafkadb
     username: root
     password: rootuser
 
   jpa:
     open-in-view: false
+    ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+    locations: classpath:db/migration
 
   kafka:
     consumer:
@@ -37,14 +46,3 @@ spring:
           json:
             trusted:
               packages: "*"
-
-    producer:
-      # The address of the Kafka broker(s) for the producer
-      bootstrap-servers: localhost:9092
-
-      # Serializer for the producer key (converts the key data to String)
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-
-      # Serializer for the producer value (converts the value data to String)
-      # value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

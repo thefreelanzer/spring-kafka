@@ -1,0 +1,28 @@
+# Server configuration
+server:
+  port: 8081
+
+spring:
+  application:
+    name: kafka-producer-wikimedia
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/customers
+    username: root
+    password: rootuser
+
+  jpa:
+    open-in-view: false
+
+  kafka:
+
+    producer:
+      # The address of the Kafka broker(s) for the producer
+      bootstrap-servers: localhost:9092
+
+      # Serializer for the producer key (converts the key data to String)
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+      # Serializer for the producer value (converts the value data to String)
+      # value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
